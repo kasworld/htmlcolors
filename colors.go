@@ -15,6 +15,9 @@ import (
 	gocolor "image/color"
 )
 
+//go:generate stringer -type=Color
+type Color uint32
+
 //http://www.w3schools.com/html/html_colorvalues.asp
 const (
 	AliceBlue            Color = 0xF0F8FF
@@ -159,8 +162,6 @@ const (
 	YellowGreen          Color = 0x9ACD32
 )
 
-type Color uint32
-
 func (c Color) ToRGBA() RGBA {
 	return [4]uint8{
 		uint8((c >> 16) & 0xff),
@@ -168,6 +169,12 @@ func (c Color) ToRGBA() RGBA {
 		uint8((c >> 0) & 0xff),
 		0xff,
 	}
+}
+
+// for image/color Color interface
+func (c Color) RGBA() (uint32, uint32, uint32, uint32) {
+	rtn := c.ToRGBA()
+	return uint32(rtn[0]), uint32(rtn[1]), uint32(rtn[2]), uint32(rtn[3])
 }
 
 func (c RGBA) ToColor() Color {
