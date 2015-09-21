@@ -174,7 +174,7 @@ func (c Color) ToRGBA() RGBA {
 // for image/color Color interface
 func (c Color) RGBA() (uint32, uint32, uint32, uint32) {
 	rtn := c.ToRGBA()
-	return uint32(rtn[0]), uint32(rtn[1]), uint32(rtn[2]), uint32(rtn[3])
+	return uint32(rtn[0]) << 8, uint32(rtn[1]) << 8, uint32(rtn[2]) << 8, uint32(rtn[3]) << 8
 }
 
 func (c RGBA) ToColor() Color {
